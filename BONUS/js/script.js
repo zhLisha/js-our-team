@@ -3,7 +3,7 @@
     a. Nome Cognome
     b. Ruolo
     c. Foto
-- Stampare per ogni membro la sua card.
+- Stampare per ogni membro la sua card e anche dei membri nuovi.
 */
 
 // Creare un array contentente tutti i dati del team fisso
@@ -40,16 +40,43 @@ const allTeams = [
     }
 ];
 
+console.log('Membri nuovi:', allTeams);
 
 // Richiamo il mio elemento del DOM a cui dovro' inserire tutte le card del team
 const allTeamGrid = document.querySelector('.team-container');
+// Richiamo il mio elemento del DOM BTN ADD
+const addBtn = document.getElementById('addMemberButton');
 
-// Invoco la mia funzione per scorrere l'array
-allTeamObject(allTeams);
- 
+
 // STAMPARE PER OGNI MEMBRO LA SUA CARD
+// Invoco la mia funzione per scorrere l'array  e popolare il DOM con le card del team
+allTeamCard(allTeams);
+
+
+// PRENDERE I DATI DEI NUOVI UTENTI AL CLICK DEL BTN ADD
+addBtn.addEventListener('click', addNewMember);
+const finalNewMemeberInfo = addNewMember();
+
+
+ // Inserirli nell'array allTeams
+ allTeams.push(finalNewMemeberInfo);
+
+ console.log('Membri nuovi:', allTeams);
+ // Automatizzare il popolamente di questi ultimi nel DOM
+
+
+
+
+
+
+// ---------------------------------------
+//              FUNCTIONS
+// ---------------------------------------
+
+ 
+// FUNZIONE STAMPARE PER OGNI MEMBRO LA SUA CARD
 // Scorro tutta l'array per avere gli object al suo interno
-function allTeamObject(teamsInfo) {
+function allTeamCard(teamsInfo) {
     for(let i = 0; i < teamsInfo.length; i++) {
         const singleCard = teamsInfo[i]; 
 
@@ -72,3 +99,21 @@ function singleObjectInfo(arrayTeamElement) {
     // Inserisco newDiv alla classe team-container del DOM per creare le effettive CARD di ogni membro
     allTeamGrid.innerHTML += newDiv;
 }
+
+// // AGGIUNGERE NUOVI UTENTI ALL'INTERFACCIA TEAM AL CLICK DEL BTN ADD
+function addNewMember() {
+    // Leggere i valori inseriti dall'utente
+    const newName = document.getElementById('name').value;
+    const newRole = document.getElementById('role').value;
+    const newImage = document.getElementById('image').value;
+
+    // Creare un nuovo object per ogni utente nuovo
+    const addNewMemberTeam = {
+        name: newName,
+        role: newRole,
+        const: newImage,
+    };
+    console.log('nuovi membri', addNewMemberTeam);
+
+    return addNewMemberTeam;
+} 
