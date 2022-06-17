@@ -40,29 +40,20 @@ const allTeams = [
     }
 ];
 
-console.log('Membri nuovi:', allTeams);
-
 // Richiamo il mio elemento del DOM a cui dovro' inserire tutte le card del team
 const allTeamGrid = document.querySelector('.team-container');
+
 // Richiamo il mio elemento del DOM BTN ADD
 const addBtn = document.getElementById('addMemberButton');
 
 
 // STAMPARE PER OGNI MEMBRO LA SUA CARD
-// Invoco la mia funzione per scorrere l'array  e popolare il DOM con le card del team
-allTeamCard(allTeams);
+// Invoco la mia funzione per scorrere l'array  e popolare il DOM con le card del team fisso
+const oldTeam = allTeamCard(allTeams);
 
+// AGGIUNGERE NUOVI UTENTI ALL'INTERFACCIA TEAM AL CLICK DEL BTN ADD
+addBtn.addEventListener('click', readNewNumber);
 
-// PRENDERE I DATI DEI NUOVI UTENTI AL CLICK DEL BTN ADD
-addBtn.addEventListener('click', addNewMember);
-const finalNewMemeberInfo = addNewMember();
-
-
- // Inserirli nell'array allTeams
- allTeams.push(finalNewMemeberInfo);
-
- console.log('Membri nuovi:', allTeams);
- // Automatizzare il popolamente di questi ultimi nel DOM
 
 
 
@@ -87,6 +78,7 @@ function allTeamCard(teamsInfo) {
 
 // Tiro fuori i valori dai singoli elementi dell'object e li inserisco nel nuovo DIV da inserire a team-container
 function singleObjectInfo(arrayTeamElement) {
+
     const newDiv = `
     <div class="team-card">
         <div class="card-image">
@@ -100,8 +92,9 @@ function singleObjectInfo(arrayTeamElement) {
     allTeamGrid.innerHTML += newDiv;
 }
 
-// // AGGIUNGERE NUOVI UTENTI ALL'INTERFACCIA TEAM AL CLICK DEL BTN ADD
-function addNewMember() {
+
+// AGGIUNGERE NUOVI UTENTI ALL'INTERFACCIA TEAM AL CLICK DEL BTN ADD
+function readNewNumber() {
     // Leggere i valori inseriti dall'utente
     const newName = document.getElementById('name').value;
     const newRole = document.getElementById('role').value;
@@ -111,9 +104,11 @@ function addNewMember() {
     const addNewMemberTeam = {
         name: newName,
         role: newRole,
-        const: newImage,
+        image: newImage,
     };
-    console.log('nuovi membri', addNewMemberTeam);
+     // Automatizzare il popolamente di questi ultimi nel DOM
+    singleObjectInfo(addNewMemberTeam);
 
-    return addNewMemberTeam;
-} 
+    // Inserirli nell'array allTeams
+    allTeams.push(addNewMemberTeam);
+};
